@@ -26,7 +26,14 @@ const io = socketIO(server, {
 });
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: [
+    "https://disaster-response-two.vercel.app/", // Replace with your actual Vercel frontend domain
+    "http://localhost:3000" // Keep this for local development
+  ],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use((req, res, next) => {
   req.io = io; // Inject socket.io into req
